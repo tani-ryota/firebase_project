@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAih_jip7xeZqbnOBNEjGgn5hG4khYGyLs',
-    appId: '1:513284884013:web:3eeaff3c618364997e9aa4',
-    messagingSenderId: '513284884013',
-    projectId: 'test-54071',
-    authDomain: 'test-54071.firebaseapp.com',
-    storageBucket: 'test-54071.appspot.com',
-    measurementId: 'G-B9LYY25ZLZ',
+    apiKey: 'AIzaSyCtE1hBwFBGYMy1vLKNOzTSrEjDsYbnmgo',
+    appId: '1:789682175879:web:ff181004f9dfcce32f9d22',
+    messagingSenderId: '789682175879',
+    projectId: 'shift-mng-3e25a',
+    authDomain: 'shift-mng-3e25a.firebaseapp.com',
+    storageBucket: 'shift-mng-3e25a.appspot.com',
+    measurementId: 'G-8691QZE70P',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB0XX6wwLK1lMJNdyJu_a-akYew1hqUVgM',
-    appId: '1:513284884013:android:8f0879d8dc5a447d7e9aa4',
-    messagingSenderId: '513284884013',
-    projectId: 'test-54071',
-    storageBucket: 'test-54071.appspot.com',
+    apiKey: 'AIzaSyBFJ0U-6k9WdyxiewBbo2A-UXpKc-PBHj8',
+    appId: '1:789682175879:android:d2d82293dc824d982f9d22',
+    messagingSenderId: '789682175879',
+    projectId: 'shift-mng-3e25a',
+    storageBucket: 'shift-mng-3e25a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD5MZgLGn6PcRtyYI-rVRzG-TtWlchXksg',
-    appId: '1:513284884013:ios:1eedcba0b7925e607e9aa4',
-    messagingSenderId: '513284884013',
-    projectId: 'test-54071',
-    storageBucket: 'test-54071.appspot.com',
-    iosBundleId: 'com.example.firebaseSample',
+    apiKey: 'AIzaSyC3RHGDnCMZJEjNB290UTchcuLzoUFwdYE',
+    appId: '1:789682175879:ios:e29ebd3287fc32012f9d22',
+    messagingSenderId: '789682175879',
+    projectId: 'shift-mng-3e25a',
+    storageBucket: 'shift-mng-3e25a.appspot.com',
+    iosBundleId: 'com.example.firebaseProject',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD5MZgLGn6PcRtyYI-rVRzG-TtWlchXksg',
-    appId: '1:513284884013:ios:a95e6284bd28f8bb7e9aa4',
-    messagingSenderId: '513284884013',
-    projectId: 'test-54071',
-    storageBucket: 'test-54071.appspot.com',
-    iosBundleId: 'com.example.firebaseSample.RunnerTests',
+    apiKey: 'AIzaSyC3RHGDnCMZJEjNB290UTchcuLzoUFwdYE',
+    appId: '1:789682175879:ios:fb40762a9b85c4c82f9d22',
+    messagingSenderId: '789682175879',
+    projectId: 'shift-mng-3e25a',
+    storageBucket: 'shift-mng-3e25a.appspot.com',
+    iosBundleId: 'com.example.firebaseProject.RunnerTests',
   );
 }
