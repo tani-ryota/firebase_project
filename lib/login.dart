@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,12 +14,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late String _email = '';
+  late String _password = '';
+  String infoText = 'ログイン';
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ログイン'),
+        title: Text(infoText),
         backgroundColor: Colors.blue,
       ),
       body: Center(
@@ -31,8 +38,14 @@ class _LoginPageState extends State<LoginPage> {
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'ユーザー名を入力してください',
+                    labelText: 'ユーザー名を入力してください',                    
                   ),
+                  onChanged: (value){
+                    setState(() {
+                      // _email = '';
+                      _email = value;
+                    });
+                  }
                 ),
               ),
               Padding(
@@ -50,13 +63,38 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               _isObscure = !_isObscure;
                             });
-                          })),
+                          }
+                          ),
+                          
+                          ),
+                          onChanged: (value){
+                            setState(() {
+                              // _password = '';
+                              _password = value;
+                    });
+                  }
                 ),
               ),
               Center(
                 child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/Shift');
+                    onPressed:() async {
+                       try {
+      
+                        await _auth.signInWithEmailAndPassword(
+                          email: _email,
+                          password: _password
+                        );
+                        await Navigator.pushNamed(context , '/Shift');
+                       setState(() {
+                         infoText = 'ログインに成功しました';
+                       });
+                       
+                        
+                  }  catch (e) {
+                    setState(() {
+                      infoText = 'ログインに失敗しました';
+                    });
+                    }   
                     },
                     child: Text('ログイン')),
               ),
@@ -66,4 +104,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  
+ 
 }
