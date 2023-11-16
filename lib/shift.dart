@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'firebase_options.dart';
 
-import 'main.dart';
-import 'login.dart';
+import 'package:firebase_project/setting.dart';
+import 'package:flutter/material.dart';
+
 import 'chat.dart';
 
 class Shift extends StatelessWidget {
@@ -13,7 +10,7 @@ class Shift extends StatelessWidget {
     return MaterialApp(
       // 右上に表示される"debug"ラベルを消す
       debugShowCheckedModeBanner: false,
-      title: 'My Todo App',
+      title: 'シフト一覧',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -21,6 +18,7 @@ class Shift extends StatelessWidget {
       home: TodoListPage(),
       routes: {
         '/Chat': (context) => Chat(),
+        '/Setting': (context) => Setting(),
       },
     );
   }
@@ -59,7 +57,11 @@ class _TodoListPageState extends State<TodoListPage> {
               backgroundColor: Colors.blueAccent),
           BottomNavigationBarItem(
             label: 'チャット',
-            icon: Icon(Icons.location_city),
+            icon: Icon(Icons.chat),
+          ),
+           BottomNavigationBarItem(
+            label: '設定',
+            icon: Icon(Icons.settings),
           ),
         ],
         onTap: (int value) {
@@ -67,8 +69,9 @@ class _TodoListPageState extends State<TodoListPage> {
             Navigator.pushNamed(context, '/Shift');
           } else if (value == 1) {
             Navigator.pushNamed(context, '/Chat');
-          }
-        },
+          } else if (value == 2) {
+            Navigator.pushNamed(context, '/Setting');
+          }}        
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -153,7 +156,11 @@ class _TodoAddPageState extends State<TodoAddPage> {
               backgroundColor: Colors.blueAccent),
           BottomNavigationBarItem(
             label: 'チャット',
-            icon: Icon(Icons.location_city),
+            icon: Icon(Icons.chat),
+          ),
+          BottomNavigationBarItem(
+            label: '設定',
+            icon: Icon(Icons.settings),
           ),
         ],
         onTap: (int value) {
@@ -161,6 +168,8 @@ class _TodoAddPageState extends State<TodoAddPage> {
             Navigator.pushNamed(context, '/Shift');
           } else if (value == 1) {
             Navigator.pushNamed(context, '/Chat');
+          } else if (value == 2) {
+            Navigator.pushNamed(context, '/Setting');
           }
         },
       ),
