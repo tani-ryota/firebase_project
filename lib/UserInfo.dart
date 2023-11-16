@@ -44,7 +44,8 @@ class Info extends StatelessWidget {
         title: const Text('ユーザー情報変更'),
 
       ),
-      body:TextField(
+      body:Center(
+      child:TextField(
           decoration: InputDecoration(
             labelText: '名前',
             border: OutlineInputBorder(
@@ -53,7 +54,7 @@ class Info extends StatelessWidget {
           ),
         ElevatedButton(child: null,)
         ),
-      
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         items: const <BottomNavigationBarItem>[
