@@ -1,5 +1,8 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'firebase_options.dart';
+
 
 import 'package:firebase_project/chat.dart';
 import 'package:firebase_project/setting.dart';
@@ -30,31 +33,76 @@ class userInfo extends StatelessWidget {
 }
 
 class Info extends StatelessWidget {
-  Info({super.key});
-    //Firestoreインスタンスの作成と代入 
-  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+   Info({super.key});
+  
+  final user_name = TextEditingController();
+  bool _isObscure = true;
 
+  void fire() async {
+    
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
-  static final CollectionReference _users = _firestore.collection('SHIFT_USER');
-  final Stream<QuerySnapshot> _user_nameStream = _users.where('name', isEqualTo: 'user_name').snapshots();
-  @override
+  final _users =  await _firestore.collection('SHIFT_USER').get();
+  var msg = '';
+ _users.docChanges.forEach((element) {
+  final name = element.doc.get('user_name');
+  final id = element.doc.get('user_id');
+  final wage = element.doc.get('hourly_wage');
+  msg += "${name}";
+ });
+  
+  user_name.text = msg;
+  }
+  @override 
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('ユーザー情報変更'),
 
       ),
       body:Center(
-      child:TextField(
-          decoration: InputDecoration(
-            labelText: '名前',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
+        child:Column(
+          children: <Widget>[
+            
+          ElevatedButton(onPressed: fire, child: Text('名前を表示する')),
+           
+          TextFormField(
+                decoration: InputDecoration(
+                  
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                 
+                ),
+                 controller: user_name
           ),
-        ElevatedButton(child: null,)
-        ),
-      ),
+          
+          TextFormField(
+                decoration: InputDecoration(
+                  
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                 
+                ),
+                 controller: user_name
+          ),
+          TextFormField(
+                decoration: InputDecoration(
+                  
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                 
+                ),
+                 controller: user_name
+          ),
+          
+          
+            
+          ],),
+      ),  
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         items: const <BottomNavigationBarItem>[
