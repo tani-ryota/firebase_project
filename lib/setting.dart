@@ -5,6 +5,7 @@ import 'package:firebase_project/userInfo.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'shift.dart';
 
@@ -44,16 +45,17 @@ class Settings extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Center(
+              Center( 
                 
                 child: ElevatedButton(
                             onPressed: ()async{
                               await Navigator.pushNamed(context , '/UserInfo');
                             },
-                            child: Text("ユーザー情報変更"),
-                            style: TextButton.styleFrom(
+                            child: Text('ユーザー情報変更'),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(20),
                               textStyle: const TextStyle(fontSize: 15),
-                              foregroundColor: Colors.white, // foreground
+                              foregroundColor: Colors.black, // foreground
                               fixedSize: Size(400, 50),
                               alignment: Alignment.center,
                             )),
@@ -64,27 +66,32 @@ class Settings extends StatelessWidget {
                             onPressed: (){
                               showDialog(
                                 context: context,
-                                builder: (_) {
-                                  return AlertDialog(
+                                builder: (BuildContext context) => AlertDialog(
+                                 
                                     title: Text("ログアウト"),
                                     content: Text("ログアウトします"),
                                     actions: <Widget>[
                                       // ボタン領域
                                       TextButton( 
                                         child: Text("Cancel"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        }   
+                                        style: TextButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                                        ),
+                                        onPressed: () =>
+                                          Navigator.pop<String>(context,'Cancel')
+                                           
                                       ),
                                       TextButton(
                                         child: Text("OK"),
-                                        onPressed: (){ 
+                                        onPressed: (){  
+                                          FirebaseAuth.instance.signOut();
+
                                           Navigator.pushNamed(context, '/Login');
                                         }
                                       ),
                                     ],
-                                  );
-                                },
+                                  
+                                )
                               );
                               
                             },

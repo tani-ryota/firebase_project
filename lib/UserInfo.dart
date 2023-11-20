@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'shift.dart';
 
 class userInfo extends StatelessWidget {
-  
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,20 @@ class userInfo extends StatelessWidget {
   }
 }
 
-class Info extends StatelessWidget {
-   Info({super.key});
-  
+class Info extends StatefulWidget {
+  @override
+  _Info createState() => _Info();
+}
+class _Info extends State<Info> {
+  @override
   final user_name = TextEditingController();
   bool _isObscure = true;
+  bool _isObscure2 = true;
+  bool _isObscure3 = true;
+  late String _userName = '';
+  late String _newPass = '';
 
-  void fire() async {
+  void fire_get() async {
     
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
@@ -62,46 +69,132 @@ class Info extends StatelessWidget {
 
       ),
       body:Center(
-        child:Column(
+        child:Container(
+          padding: const EdgeInsets.all(30.0),
+           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            
-          ElevatedButton(onPressed: fire, child: Text('名前を表示する')),
-           
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:ElevatedButton(onPressed: fire_get, child: Text('名前を表示する')),
+            ),
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
           TextFormField(
                 decoration: InputDecoration(
-                  
+                  labelText: '名前を入力',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                  
                 ),
-                 controller: user_name
-          ),
-          
-          TextFormField(
-                decoration: InputDecoration(
-                  
-                  border: OutlineInputBorder(
+                 controller: user_name,
+                onChanged: (value){
+                            setState(() {
+                              
+                              _userName = value;
+                    });
+                  }
+          ),),
+          Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
+           TextFormField(
+                  obscureText: _isObscure,
+                  decoration: InputDecoration(
+                       border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                 
-                ),
-                 controller: user_name
-          ),
-          TextFormField(
-                decoration: InputDecoration(
-                  
-                  border: OutlineInputBorder(
+                      labelText: '現在のパスワードを入力',
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              
+                              _isObscure = !_isObscure;
+                                                         
+                            });
+                              
+                          }
+                          ),
+                          
+                          ),
+                          
+                ),),
+         Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
+           TextFormField(
+                  obscureText: _isObscure2,
+                  decoration: InputDecoration(
+                       border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                 
-                ),
-                 controller: user_name
-          ),
+                      labelText: '新しいパスワードを入力',
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure2
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              
+                              _isObscure2 = !_isObscure2;
+                                                         
+                            });
+                              
+                          }
+                          
+                          ),
+                           
+                          ),
+                           onChanged: (value){
+                            setState(() {
+                              
+                              _newPass = value;
+                    });
+                  }
+                          
+                ),),
+                Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
+           TextFormField(
+                  obscureText: _isObscure3,
+                  decoration: InputDecoration(
+                       border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                      labelText: '再入力',
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure3
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              
+                              _isObscure3 = !_isObscure3;
+                                                         
+                            });
+                              
+                          }
+                          ),
+                          
+                          ),
+                          
+                          
+                ),),
           
           
-            
-          ],),
+          ])
+          ,),
       ),  
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
