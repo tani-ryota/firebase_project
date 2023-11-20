@@ -2,7 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
-
+import 'login.dart';
 
 import 'package:firebase_project/chat.dart';
 import 'package:firebase_project/setting.dart';
@@ -44,7 +44,7 @@ class _Info extends State<Info> {
   bool _isObscure3 = true;
   late String _userName = '';
   late String _newPass = '';
-
+  var fireDocs = '';
   void fire_get() async {
     
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -60,6 +60,36 @@ class _Info extends State<Info> {
   
   user_name.text = msg;
   }
+  void fire_doc() async {
+  var fireDoc = '';
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
+  await _firestore.collection('SHIFT_USER').get().then(
+        (QuerySnapshot querySnapshot) => {
+          querySnapshot.docs.forEach(
+            (doc) {
+              fireDoc = doc.id;
+            },
+          ),
+        },
+      );
+      setState(() {
+        fireDocs = fireDoc;
+      });
+  
+  
+  }
+  void fire_up() async {
+    
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  fire_doc();
+  user_name.text = '{$fireDocs}';
+  //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
+  // await _firestore.collection('SHIFT_USER').doc('{$fireDoc}').update({'user_name' : _userName});
+  
+  
+  
+  }
   @override 
   Widget build(BuildContext context) {
     
@@ -69,7 +99,7 @@ class _Info extends State<Info> {
 
       ),
       body:Center(
-        child:Container(
+        child:SingleChildScrollView(
           padding: const EdgeInsets.all(30.0),
            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,7 +221,13 @@ class _Info extends State<Info> {
                           
                           
                 ),),
-          
+          Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                
+                            child:ElevatedButton(onPressed: fire_up, child: Text('変更する')),
+                       
+           ),
           
           ])
           ,),
