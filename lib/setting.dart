@@ -1,6 +1,6 @@
 
 
-import 'package:firebase_project/chat.dart';
+import 'package:firebase_project/ChatPage.dart';
 import 'package:firebase_project/userInfo.dart';
 
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class Setting extends StatelessWidget {
       home: Settings(),
       routes: {
         '/Shift': (context) => Shift(),
-        '/Chat': (context) => Chat(),
+        '/Chat': (context) => ChatPage(),
         '/UserInfo': (context) => userInfo(),
       },
     );

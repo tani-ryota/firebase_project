@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_project/login.dart';
-import 'chat.dart';
+import 'ChatPage.dart';
 import 'shift.dart';
 import 'setting.dart';
 import 'UserInfo.dart'; 
@@ -32,9 +32,10 @@ class App extends StatelessWidget {
       routes: {
         '/Login': (context) => LoginPage(),
         '/Shift': (context) => Shift(),
-        '/Chat': (context) => Chat(),
+        '/Chat': (context) => ChatPage(),
         '/Setting': (context) => Setting(),
         '/UserInfo' : (context) => userInfo()
+        
       },
     );
   }

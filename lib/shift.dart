@@ -2,7 +2,7 @@
 import 'package:firebase_project/setting.dart';
 import 'package:flutter/material.dart';
 
-import 'chat.dart';
+import 'ChatPage.dart';
 
 class Shift extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class Shift extends StatelessWidget {
       ),
       home: TodoListPage(),
       routes: {
-        '/Chat': (context) => Chat(),
+        '/Chat': (context) => ChatPage(),
         '/Setting': (context) => Setting(),
       },
     );
