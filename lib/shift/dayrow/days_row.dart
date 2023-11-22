@@ -1,4 +1,7 @@
+export 'package:firebase_project/ChatPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_project/UserInfo.dart';
 import 'package:firebase_project/shift/cell_calendar.dart';
 
 import 'package:flutter/material.dart';
@@ -101,6 +104,9 @@ class _DayCell extends HookConsumerWidget {
         date.month == today.month &&
         date.day == today.day;
 
+    final user = FirebaseAuth.instance.currentUser!;
+    final username = user.displayName!;
+
     return Expanded(
       child: GestureDetector(
         //ホップアップ
@@ -124,7 +130,7 @@ class _DayCell extends HookConsumerWidget {
                           .collection('SHIFTS')
                           .doc()
                           .set({
-                        'user': 'たけし',
+                        'user': '$username',
                         'day': '$date',
                       });
                       Navigator.pop(context);
