@@ -6,64 +6,58 @@ import 'my_page.dart';
 import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  const ChatPage({Key? key});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
+  late ScrollController _scrollController;
+  final controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    _scrollController.dispose(); // Dispose the ScrollController
+    super.dispose();
+  }
+
   Future<void> sendPost(String text) async {
-    // まずは user という変数にログイン中のユーザーデータを格納します
     final user = FirebaseAuth.instance.currentUser!;
-
-    final posterId = user.uid; // ログイン中のユーザーのIDがとれます
-    final posterName = user.displayName!; // Googleアカウントの名前がとれます
-    final posterImageUrl = user.photoURL!; // Googleアカウントのアイコンデータがとれます
-
-    // 先ほど作った postsReference からランダムなIDのドキュメントリファレンスを作成します
-    // doc の引数を空にするとランダムなIDが採番されます
+    final posterId = user.uid;
+    final posterName = user.displayName!;
+    final posterImageUrl = user.photoURL!;
     final newDocumentReference = postsReference.doc();
 
     final newPost = Post(
       text: text,
-      createdAt: Timestamp.now(), // 投稿日時は現在とします
+      createdAt: Timestamp.now(),
       posterName: posterName,
       posterImageUrl: posterImageUrl,
       posterId: posterId,
       reference: newDocumentReference,
     );
 
-    // 先ほど作った newDocumentReference のset関数を実行するとそのドキュメントにデータが保存されます。
-    // 引数として Post インスタンスを渡します。
-    // 通常は Map しか受け付けませんが、withConverter を使用したことにより Post インスタンスを受け取れるようになります。
     newDocumentReference.set(newPost);
-  }
-
-  // build の外でインスタンスを作ります。
-  final controller = TextEditingController();
-
-  /// この dispose 関数はこのWidgetが使われなくなったときに実行されます。
-  @override
-  void dispose() {
-    // TextEditingController は使われなくなったら必ず dispose する必要があります。
-    controller.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold 全体を GestureDetector で囲むことでタップ可能になります。
     return GestureDetector(
       onTap: () {
-        // キーボードを閉じたい時はこれを呼びます。
         primaryFocus?.unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
           title: const Text('チャット'),
           actions: [
-            // tap 可能にするために InkWell を使います。
             InkWell(
               onTap: () {
                 Navigator.of(context).push(
@@ -85,20 +79,22 @@ class _ChatPageState extends State<ChatPage> {
         body: Column(children: [
           Expanded(
             child: StreamBuilder<QuerySnapshot<Post>>(
-              // stream プロパティに snapshots() を与えると、コレクションの中のドキュメントをリアルタイムで監視することができます。
               stream: postsReference.orderBy('createdAt').snapshots(),
-              // ここで受け取っている snapshot に stream で流れてきたデータが入っています。
               builder: (context, snapshot) {
-                // docs には Collection に保存されたすべてのドキュメントが入ります。
-                // 取得までには時間がかかるのではじめは null が入っています。
-                // null の場合は空配列が代入されるようにしています。
                 final docs = snapshot.data?.docs ?? [];
+
+                // スクロール位置が一番下にあるときだけ自動スクロール
+                if (_scrollController.hasClients &&
+                    _scrollController.position.atEdge) {
+                  _scrollController.jumpTo(
+                    _scrollController.position.maxScrollExtent,
+                  );
+                }
+
                 return ListView.builder(
+                  controller: _scrollController,
                   itemCount: docs.length,
                   itemBuilder: (context, index) {
-                    // data() に Post インスタンスが入っています。
-                    // これは withConverter を使ったことにより得られる恩恵です。
-                    // 何もしなければこのデータ型は Map になります。
                     final post = docs[index].data();
                     return PostWidget(post: post);
                   },
@@ -111,12 +107,10 @@ class _ChatPageState extends State<ChatPage> {
             child: TextFormField(
               controller: controller,
               decoration: InputDecoration(
-                // 未選択時の枠線
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: const BorderSide(color: Colors.amber),
                 ),
-                // 選択時の枠線
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: const BorderSide(
@@ -124,10 +118,17 @@ class _ChatPageState extends State<ChatPage> {
                     width: 2,
                   ),
                 ),
-                // 中を塗りつぶす色
                 fillColor: Colors.amber[50],
-                // 中を塗りつぶすかどうか
                 filled: true,
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.send, color: Colors.blue),
+                  onPressed: () {
+                    if (controller.text.isNotEmpty) {
+                      sendPost(controller.text);
+                      controller.clear();
+                    }
+                  },
+                ),
               ),
               onFieldSubmitted: (text) {
                 if(text.trim().isNotEmpty){
@@ -153,10 +154,12 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isCurrentUser =
+        FirebaseAuth.instance.currentUser!.uid == post.posterId;
+
     return GestureDetector(
       onLongPress: () {
-        // 長押しされたときの処理
-        if (FirebaseAuth.instance.currentUser!.uid == post.posterId) {
+        if (isCurrentUser) {
           showDialog(
             context: context,
             builder: (context) {
@@ -171,16 +174,13 @@ class PostWidget extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () {
-                          // 削除ボタンを押すとメッセージを削除する
                           post.reference.delete();
-                          // ダイアログを閉じる
                           Navigator.of(context).pop();
                         },
                         child: Text('削除'),
                       ),
                       TextButton(
                         onPressed: () {
-                          // キャンセルボタンを押すとダイアログを閉じる
                           Navigator.of(context).pop();
                         },
                         child: Text('キャンセル'),
@@ -194,17 +194,25 @@ class PostWidget extends StatelessWidget {
         }
       },
       child: Row(
+        mainAxisAlignment:
+            isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(post.posterImageUrl),
-          ),
-          const SizedBox(width: 8),
+          if (!isCurrentUser) ...[
+            CircleAvatar(
+              backgroundImage: NetworkImage(post.posterImageUrl),
+            ),
+            const SizedBox(width: 8),
+          ],
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: isCurrentUser
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: isCurrentUser
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.start,
                   children: [
                     Text(
                       post.posterName,
@@ -219,10 +227,7 @@ class PostWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color:
-                        FirebaseAuth.instance.currentUser!.uid == post.posterId
-                            ? Colors.amber[100]
-                            : Colors.blue[100],
+                    color: isCurrentUser ? Colors.blue[100] : Colors.amber[100],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +237,6 @@ class PostWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 4),
-                // Move the time display here
                 Text(
                   DateFormat('MM/dd HH:mm').format(post.createdAt.toDate()),
                   style: TextStyle(fontSize: 10, color: Colors.grey),
@@ -240,6 +244,12 @@ class PostWidget extends StatelessWidget {
               ],
             ),
           ),
+          if (isCurrentUser) ...[
+            const SizedBox(width: 8),
+            CircleAvatar(
+              backgroundImage: NetworkImage(post.posterImageUrl),
+            ),
+          ],
         ],
       ),
     );
@@ -248,12 +258,10 @@ class PostWidget extends StatelessWidget {
 
 final postsReference =
     FirebaseFirestore.instance.collection('posts').withConverter<Post>(
-  // <> ここに変換したい型名をいれます。今回は Post です。
   fromFirestore: ((snapshot, _) {
-    // 第二引数は使わないのでその場合は _ で不使用であることを分かりやすくしています。
-    return Post.fromFirestore(snapshot); // 先ほど定期着した fromFirestore がここで活躍します。
+    return Post.fromFirestore(snapshot);
   }),
   toFirestore: ((value, _) {
-    return value.toMap(); // 先ほど適宜した toMap がここで活躍します。
+    return value.toMap();
   }),
 );
