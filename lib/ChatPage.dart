@@ -123,7 +123,7 @@ class _ChatPageState extends State<ChatPage> {
                 suffixIcon: IconButton(
                   icon: Icon(Icons.send, color: Colors.blue),
                   onPressed: () {
-                    if (controller.text.isNotEmpty) {
+                    if (controller.text.trim().isNotEmpty) {
                       sendPost(controller.text);
                       controller.clear();
                     }
