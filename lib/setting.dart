@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 import 'package:firebase_project/chat.dart';
-=======
-
 
 import 'package:firebase_project/ChatPage.dart';
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
 import 'package:firebase_project/userInfo.dart';
 
 import 'package:flutter/material.dart';
@@ -27,11 +23,8 @@ class Setting extends StatelessWidget {
       home: Settings(),
       routes: {
         '/Shift': (context) => shift(),
-<<<<<<< HEAD
         '/Chat': (context) => Chat(),
-=======
         '/Chat': (context) => ChatPage(),
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
         '/UserInfo': (context) => userInfo(),
       },
     );
@@ -48,7 +41,6 @@ class Settings extends StatelessWidget {
         title: const Text('設定'),
       ),
       body: Center(
-<<<<<<< HEAD
           child: Container(
               padding: const EdgeInsets.all(30.0),
               child: Column(
@@ -59,10 +51,11 @@ class Settings extends StatelessWidget {
                           onPressed: () async {
                             await Navigator.pushNamed(context, '/UserInfo');
                           },
-                          child: Text("ユーザー情報変更"),
-                          style: TextButton.styleFrom(
+                          child: Text('ユーザー情報変更'),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(20),
                             textStyle: const TextStyle(fontSize: 15),
-                            foregroundColor: Colors.white, // foreground
+                            foregroundColor: Colors.black, // foreground
                             fixedSize: Size(400, 50),
                             alignment: Alignment.center,
                           )),
@@ -71,28 +64,33 @@ class Settings extends StatelessWidget {
                       child: ElevatedButton(
                           onPressed: () {
                             showDialog(
-                              context: context,
-                              builder: (_) {
-                                return AlertDialog(
-                                  title: Text("ログアウト"),
-                                  content: Text("ログアウトします"),
-                                  actions: <Widget>[
-                                    // ボタン領域
-                                    TextButton(
-                                        child: Text("Cancel"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        }),
-                                    TextButton(
-                                        child: Text("OK"),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, '/Login');
-                                        }),
-                                  ],
-                                );
-                              },
-                            );
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      title: Text("ログアウト"),
+                                      content: Text("ログアウトします"),
+                                      actions: <Widget>[
+                                        // ボタン領域
+                                        TextButton(
+                                            child: Text("Cancel"),
+                                            style: TextButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 16),
+                                            ),
+                                            onPressed: () =>
+                                                Navigator.pop<String>(
+                                                    context, 'Cancel')),
+                                        TextButton(
+                                            child: Text("OK"),
+                                            onPressed: () {
+                                              FirebaseAuth.instance.signOut();
+
+                                              Navigator.pushNamed(
+                                                  context, '/Login');
+                                            }),
+                                      ],
+                                    ));
                           },
                           child: Text("ログアウト"),
                           style: TextButton.styleFrom(
@@ -104,78 +102,6 @@ class Settings extends StatelessWidget {
                           )),
                     )
                   ]))),
-=======
-         child: Container(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Center( 
-                
-                child: ElevatedButton(
-                            onPressed: ()async{
-                              await Navigator.pushNamed(context , '/UserInfo');
-                            },
-                            child: Text('ユーザー情報変更'),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.all(20),
-                              textStyle: const TextStyle(fontSize: 15),
-                              foregroundColor: Colors.black, // foreground
-                              fixedSize: Size(400, 50),
-                              alignment: Alignment.center,
-                            )),
-              ),
-              Center(
-                
-                child: ElevatedButton(
-                            onPressed: (){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                 
-                                    title: Text("ログアウト"),
-                                    content: Text("ログアウトします"),
-                                    actions: <Widget>[
-                                      // ボタン領域
-                                      TextButton( 
-                                        child: Text("Cancel"),
-                                        style: TextButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                                        ),
-                                        onPressed: () =>
-                                          Navigator.pop<String>(context,'Cancel')
-                                           
-                                      ),
-                                      TextButton(
-                                        child: Text("OK"),
-                                        onPressed: (){  
-                                          FirebaseAuth.instance.signOut();
-
-                                          Navigator.pushNamed(context, '/Login');
-                                        }
-                                      ),
-                                    ],
-                                  
-                                )
-                              );
-                              
-                            },
-                            child: Text("ログアウト"),
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 15),
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white, // foreground
-                              fixedSize: Size(400, 50),
-                              alignment: Alignment.center,
-                            )),
-              )
-            ]
-          )
-         )
-      
-      ),
-      
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         items: const <BottomNavigationBarItem>[

@@ -1,15 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-<<<<<<< HEAD
 
 import 'package:firebase_project/shift/cell_calendar.dart';
 
 import 'package:flutter/material.dart';
 
-=======
-import 'package:firebase_project/shift/cell_calendar.dart';
-
-import 'package:flutter/material.dart';
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
 import 'package:flutter/services.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,14 +11,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'event_labels.dart';
 
 import 'measure_size.dart';
-<<<<<<< HEAD
 import 'package:firebase_project/login.dart';
 
 //import 'package:firebase_core/firebase_core.dart';
-=======
-
-import 'package:firebase_core/firebase_core.dart';
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
 
 final cellHeightProvider = StateProvider<double?>((ref) => null);
 
@@ -138,16 +127,10 @@ class _DayCell extends HookConsumerWidget {
                           .collection('SHIFTS')
                           .doc()
                           .set({
-<<<<<<< HEAD
                         'user': '',
                         'day': '$date',
                       });
 
-=======
-                        'user': 'たけし',
-                        'day': '$date',
-                      });
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
                       Navigator.pop(context);
                     },
                   ),

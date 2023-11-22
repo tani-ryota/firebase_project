@@ -7,12 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_project/App.dart';
 import 'package:firebase_project/shift/main_page/shift_mainpage.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'firebase_options.dart';
-=======
-import 'package:google_sign_in/google_sign_in.dart';
-import 'shift/main_page/shift_mainpage.dart';
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,13 +15,10 @@ void main() async {
     options: DefaultFirebaseOptions.android,
   );
   runApp(
-<<<<<<< HEAD
-    const shift(),
-=======
-    const  MyApp(),
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
+    const App(),
   );
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -42,8 +34,7 @@ class MyApp extends StatelessWidget {
       // ログイン中
       return MaterialApp(
         theme: ThemeData(),
-        home:  shift(),
-        
+        home: shift(),
       );
     }
   }
@@ -69,7 +60,7 @@ class _SignInPageState extends State<SignInPage> {
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +77,7 @@ class _SignInPageState extends State<SignInPage> {
             if (mounted) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
-                  return  shift();
+                  return shift();
                 }),
                 (route) => false,
               );
@@ -96,6 +87,4 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
-
-
 }

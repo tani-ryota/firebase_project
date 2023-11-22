@@ -2,11 +2,7 @@ import 'package:firebase_project/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_project/shift/cell_calendar.dart';
 import 'sample_Events.dart';
-<<<<<<< HEAD
 import 'package:firebase_project/chat.dart';
-=======
-import 'package:firebase_project/ChatPage.dart';
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
 
 class shift extends StatelessWidget {
   const shift({super.key});
@@ -21,11 +17,7 @@ class shift extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-<<<<<<< HEAD
         '/Chat': (context) => Chat(),
-=======
-        '/Chat': (context) => ChatPage(),
->>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
         '/Setting': (context) => Setting(),
       },
       home: const MyHomePage(title: 'シフト表'),
