@@ -1,12 +1,10 @@
-
-
 import 'package:firebase_project/chat.dart';
 import 'package:firebase_project/userInfo.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'shift.dart';
+import 'shift/main_page/shift_mainpage.dart';
 
 class Setting extends StatelessWidget {
   @override
@@ -21,7 +19,7 @@ class Setting extends StatelessWidget {
       ),
       home: Settings(),
       routes: {
-        '/Shift': (context) => Shift(),
+        '/Shift': (context) => shift(),
         '/Chat': (context) => Chat(),
         '/UserInfo': (context) => userInfo(),
       },
@@ -39,70 +37,61 @@ class Settings extends StatelessWidget {
         title: const Text('設定'),
       ),
       body: Center(
-         child: Container(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Center(
-                
-                child: ElevatedButton(
-                            onPressed: ()async{
-                              await Navigator.pushNamed(context , '/UserInfo');
-                            },
-                            child: Text("ユーザー情報変更"),
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 15),
-                              foregroundColor: Colors.white, // foreground
-                              fixedSize: Size(400, 50),
-                              alignment: Alignment.center,
-                            )),
-              ),
-              Center(
-                
-                child: ElevatedButton(
-                            onPressed: (){
-                              showDialog(
-                                context: context,
-                                builder: (_) {
-                                  return AlertDialog(
-                                    title: Text("ログアウト"),
-                                    content: Text("ログアウトします"),
-                                    actions: <Widget>[
-                                      // ボタン領域
-                                      TextButton( 
+          child: Container(
+              padding: const EdgeInsets.all(30.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            await Navigator.pushNamed(context, '/UserInfo');
+                          },
+                          child: Text("ユーザー情報変更"),
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 15),
+                            foregroundColor: Colors.white, // foreground
+                            fixedSize: Size(400, 50),
+                            alignment: Alignment.center,
+                          )),
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return AlertDialog(
+                                  title: Text("ログアウト"),
+                                  content: Text("ログアウトします"),
+                                  actions: <Widget>[
+                                    // ボタン領域
+                                    TextButton(
                                         child: Text("Cancel"),
                                         onPressed: () {
                                           Navigator.of(context).pop();
-                                        }   
-                                      ),
-                                      TextButton(
+                                        }),
+                                    TextButton(
                                         child: Text("OK"),
-                                        onPressed: (){ 
-                                          Navigator.pushNamed(context, '/Login');
-                                        }
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              
-                            },
-                            child: Text("ログアウト"),
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 15),
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white, // foreground
-                              fixedSize: Size(400, 50),
-                              alignment: Alignment.center,
-                            )),
-              )
-            ]
-          )
-         )
-      
-      ),
-      
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/Login');
+                                        }),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Text("ログアウト"),
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 15),
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white, // foreground
+                            fixedSize: Size(400, 50),
+                            alignment: Alignment.center,
+                          )),
+                    )
+                  ]))),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         items: const <BottomNavigationBarItem>[

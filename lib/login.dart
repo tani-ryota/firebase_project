@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,7 +14,6 @@ class _LoginPageState extends State<LoginPage> {
   late String _email = '';
   late String _password = '';
   String infoText = 'ログイン';
-  
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +32,22 @@ class _LoginPageState extends State<LoginPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'ユーザー名を入力してください',                    
-                  ),
-                  onChanged: (value){
-                    setState(() {
-                      // _email = '';
-                      _email = value;
-                    });
-                  }
-                ),
+                    decoration: const InputDecoration(
+                      labelText: 'ユーザー名を入力してください',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        // _email = '';
+                        _email = value;
+                      });
+                    }),
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: TextFormField(
-                  obscureText: _isObscure,
-                  decoration: InputDecoration(
+                    obscureText: _isObscure,
+                    decoration: InputDecoration(
                       labelText: 'Password',
                       suffixIcon: IconButton(
                           icon: Icon(_isObscure
@@ -61,38 +57,30 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               _isObscure = !_isObscure;
                             });
-                          }
-                          ),
-                          
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              // _password = '';
-                              _password = value;
-                    });
-                  }
-                ),
+                          }),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        // _password = '';
+                        _password = value;
+                      });
+                    }),
               ),
               Center(
                 child: ElevatedButton(
-                    onPressed:() async {
-                       try {
-      
+                    onPressed: () async {
+                      try {
                         await _auth.signInWithEmailAndPassword(
-                          email: _email,
-                          password: _password
-                        );
-                        await Navigator.pushNamed(context , '/Shift');
-                       setState(() {
-                         infoText = 'ログインに成功しました';
-                       });
-                       
-                        
-                  }  catch (e) {
-                    setState(() {
-                      infoText = 'ログインに失敗しました';
-                    });
-                    }   
+                            email: _email, password: _password);
+                        await Navigator.pushNamed(context, '/Shift');
+                        setState(() {
+                          infoText = 'ログインに成功しました';
+                        });
+                      } catch (e) {
+                        setState(() {
+                          infoText = 'ログインに失敗しました';
+                        });
+                      }
                     },
                     child: Text('ログイン')),
               ),
@@ -102,6 +90,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  
- 
 }

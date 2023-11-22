@@ -1,8 +1,7 @@
-
 import 'package:firebase_project/setting.dart';
 import 'package:flutter/material.dart';
 
-import 'shift.dart';
+import 'shift/main_page/shift_mainpage.dart';
 
 class Chat extends StatelessWidget {
   @override
@@ -17,7 +16,7 @@ class Chat extends StatelessWidget {
       ),
       home: Group(),
       routes: {
-        '/Shift': (context) => Shift(),
+        '/Shift': (context) => shift(),
         '/Setting': (context) => Setting(),
       },
     );
@@ -32,7 +31,6 @@ class Group extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('グループチャット'),
-
       ),
       body: const Center(
         child: Text(

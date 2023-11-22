@@ -4,11 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_project/chat.dart';
 import 'package:firebase_project/setting.dart';
 import 'package:flutter/material.dart';
-import 'shift.dart';
+import 'shift/main_page/shift_mainpage.dart';
 
 class userInfo extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +19,7 @@ class userInfo extends StatelessWidget {
       ),
       home: Info(),
       routes: {
-        '/Shift': (context) => Shift(),
+        '/Shift': (context) => shift(),
         '/Setting': (context) => Setting(),
         '/Chat': (context) => Chat(),
       },
@@ -31,28 +29,28 @@ class userInfo extends StatelessWidget {
 
 class Info extends StatelessWidget {
   Info({super.key});
-    //Firestoreインスタンスの作成と代入 
+  //Firestoreインスタンスの作成と代入
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
   static final CollectionReference _users = _firestore.collection('SHIFT_USER');
-  final Stream<QuerySnapshot> _user_nameStream = _users.where('name', isEqualTo: 'user_name').snapshots();
+  final Stream<QuerySnapshot> _user_nameStream =
+      _users.where('name', isEqualTo: 'user_name').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ユーザー情報変更'),
-
       ),
-      body:Center(
-      child:TextField(
+      body: Center(
+        child: TextField(
           decoration: InputDecoration(
             labelText: '名前',
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
-        ElevatedButton(child: null,)
+          //ElevatedButton(child: null,)
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
