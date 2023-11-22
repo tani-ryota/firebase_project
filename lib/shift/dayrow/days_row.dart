@@ -127,7 +127,7 @@ class _DayCell extends HookConsumerWidget {
                     child: Text("はい"),
                     onPressed: () async {
                       await FirebaseFirestore.instance
-                          .collection('SHIFTS')
+                          .collection('SHIFT_HOLIDAY')
                           .doc()
                           .set({
                         'user': '$username',
