@@ -130,8 +130,10 @@ class _ChatPageState extends State<ChatPage> {
                 filled: true,
               ),
               onFieldSubmitted: (text) {
+                if(text.trim().isNotEmpty){
                 sendPost(text);
                 controller.clear();
+                }
               },
             ),
           ),

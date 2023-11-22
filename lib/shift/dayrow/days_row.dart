@@ -132,7 +132,10 @@ class _DayCell extends HookConsumerWidget {
                           .set({
                         'user': '$username',
                         'day': '$date',
-                      });
+                      }
+                      
+                      );
+                      
                       Navigator.pop(context);
                     },
                   ),
