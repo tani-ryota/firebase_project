@@ -27,11 +27,17 @@ dependencies:
   cloud_firestore: ^4.10.0
   flutter_chat_ui: ^1.6.9
 
+<<<<<<< HEAD
   firebase_auth: ^4.12.1
  
   table_calendar: ^3.0.9
   
   
+=======
+  firebase_auth: ^4.14.0
+  google_sign_in: ^6.1.6
+
+>>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
 dev_dependencies:
   flutter_test:
     sdk: flutter

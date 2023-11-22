@@ -1,12 +1,20 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'firebase_options.dart';
+import 'login.dart';
 
-import 'package:firebase_project/chat.dart';
+import 'package:firebase_project/ChatPage.dart';
 import 'package:firebase_project/setting.dart';
 import 'package:flutter/material.dart';
 import 'shift/main_page/shift_mainpage.dart';
 
 class userInfo extends StatelessWidget {
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,12 +29,13 @@ class userInfo extends StatelessWidget {
       routes: {
         '/Shift': (context) => shift(),
         '/Setting': (context) => Setting(),
-        '/Chat': (context) => Chat(),
+        '/Chat': (context) => ChatPage(),
       },
     );
   }
 }
 
+<<<<<<< HEAD
 class Info extends StatelessWidget {
   Info({super.key});
   //Firestoreインスタンスの作成と代入
@@ -36,12 +45,74 @@ class Info extends StatelessWidget {
   static final CollectionReference _users = _firestore.collection('SHIFT_USER');
   final Stream<QuerySnapshot> _user_nameStream =
       _users.where('name', isEqualTo: 'user_name').snapshots();
+=======
+class Info extends StatefulWidget {
+>>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
   @override
+  _Info createState() => _Info();
+}
+class _Info extends State<Info> {
+  @override
+  final user_name = TextEditingController();
+  bool _isObscure = true;
+  bool _isObscure2 = true;
+  bool _isObscure3 = true;
+  late String _userName = '';
+  late String _newPass = '';
+  var fireDocs = '';
+  void fire_get() async {
+    
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
+  final _users =  await _firestore.collection('SHIFT_USER').get();
+  var msg = '';
+ _users.docChanges.forEach((element) {
+  final name = element.doc.get('user_name');
+  final id = element.doc.get('user_id');
+  final wage = element.doc.get('hourly_wage');
+  msg += "${name}";
+ });
+  
+  user_name.text = msg;
+  }
+  void fire_doc() async {
+  var fireDoc = '';
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
+  await _firestore.collection('SHIFT_USER').get().then(
+        (QuerySnapshot querySnapshot) => {
+          querySnapshot.docs.forEach(
+            (doc) {
+              fireDoc = doc.id;
+            },
+          ),
+        },
+      );
+      setState(() {
+        fireDocs = fireDoc;
+      });
+  
+  
+  }
+  void fire_up() async {
+    
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  fire_doc();
+  user_name.text = '{$fireDocs}';
+  //firebase上のコレクションへのアクセス(変数名を _users にしているが、自由に決める)
+  // await _firestore.collection('SHIFT_USER').doc('{$fireDoc}').update({'user_name' : _userName});
+  
+  
+  
+  }
+  @override 
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('ユーザー情報変更'),
       ),
+<<<<<<< HEAD
       body: Center(
         child: TextField(
           decoration: InputDecoration(
@@ -53,6 +124,142 @@ class Info extends StatelessWidget {
           //ElevatedButton(child: null,)
         ),
       ),
+=======
+      body:Center(
+        child:SingleChildScrollView(
+          padding: const EdgeInsets.all(30.0),
+           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:ElevatedButton(onPressed: fire_get, child: Text('名前を表示する')),
+            ),
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
+          TextFormField(
+                decoration: InputDecoration(
+                  labelText: '名前を入力',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                 
+                ),
+                 controller: user_name,
+                onChanged: (value){
+                            setState(() {
+                              
+                              _userName = value;
+                    });
+                  }
+          ),),
+          Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
+           TextFormField(
+                  obscureText: _isObscure,
+                  decoration: InputDecoration(
+                       border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                      labelText: '現在のパスワードを入力',
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              
+                              _isObscure = !_isObscure;
+                                                         
+                            });
+                              
+                          }
+                          ),
+                          
+                          ),
+                          
+                ),),
+         Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
+           TextFormField(
+                  obscureText: _isObscure2,
+                  decoration: InputDecoration(
+                       border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                      labelText: '新しいパスワードを入力',
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure2
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              
+                              _isObscure2 = !_isObscure2;
+                                                         
+                            });
+                              
+                          }
+                          
+                          ),
+                           
+                          ),
+                           onChanged: (value){
+                            setState(() {
+                              
+                              _newPass = value;
+                    });
+                  }
+                          
+                ),),
+                Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child:
+           TextFormField(
+                  obscureText: _isObscure3,
+                  decoration: InputDecoration(
+                       border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                      labelText: '再入力',
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure3
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              
+                              _isObscure3 = !_isObscure3;
+                                                         
+                            });
+                              
+                          }
+                          ),
+                          
+                          ),
+                          
+                          
+                ),),
+          Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                
+                            child:ElevatedButton(onPressed: fire_up, child: Text('変更する')),
+                       
+           ),
+          
+          ])
+          ,),
+      ),  
+>>>>>>> 0e80969edc32472e2de0ed230c9dc7a88f2fc3b0
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         items: const <BottomNavigationBarItem>[
