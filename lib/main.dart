@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'shift.dart';
+import 'shift/main_page/shift_mainpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       // ログイン中
       return MaterialApp(
         theme: ThemeData(),
-        home:  Shift(),
+        home:  shift(),
         
       );
     }
@@ -76,7 +76,7 @@ class _SignInPageState extends State<SignInPage> {
             if (mounted) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
-                  return  Shift();
+                  return  shift();
                 }),
                 (route) => false,
               );

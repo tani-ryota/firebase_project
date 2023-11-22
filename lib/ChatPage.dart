@@ -154,7 +154,7 @@ class PostWidget extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         // 長押しされたときの処理
-        if (FirebaseAuth.instance.currentUser!.uid != post.posterId) {
+        if (FirebaseAuth.instance.currentUser!.uid == post.posterId) {
           showDialog(
             context: context,
             builder: (context) {

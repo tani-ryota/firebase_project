@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_project/login.dart';
 import 'ChatPage.dart';
-import 'shift.dart';
+import 'shift/main_page/shift_mainpage.dart';
 import 'setting.dart';
 import 'UserInfo.dart'; 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +23,7 @@ class App extends StatelessWidget {
             }
             if (snapshot.hasData) {
               // User が null でなない、つまりサインイン済みのホーム画面へ
-              return Shift();
+              return shift();
             }
             // User が null である、つまり未サインインのサインイン画面へ
             return LoginPage();
@@ -31,7 +31,7 @@ class App extends StatelessWidget {
         ),
       routes: {
         '/Login': (context) => LoginPage(),
-        '/Shift': (context) => Shift(),
+        '/Shift': (context) => shift(),
         '/Chat': (context) => ChatPage(),
         '/Setting': (context) => Setting(),
         '/UserInfo' : (context) => userInfo()

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'shift.dart';
+import 'shift/main_page/shift_mainpage.dart';
 
 class Setting extends StatelessWidget {
   @override
@@ -22,7 +22,7 @@ class Setting extends StatelessWidget {
       ),
       home: Settings(),
       routes: {
-        '/Shift': (context) => Shift(),
+        '/Shift': (context) => shift(),
         '/Chat': (context) => ChatPage(),
         '/UserInfo': (context) => userInfo(),
       },
