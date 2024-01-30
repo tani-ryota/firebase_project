@@ -63,7 +63,7 @@ class MyPageView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('シフト確認'),
+        title: const Text('申請確認'),
          actions: [
           IconButton(
             icon: Icon(Icons.chat),
