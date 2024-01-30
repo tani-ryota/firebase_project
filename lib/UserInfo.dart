@@ -1,6 +1,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_project/shifts.dart';
 import 'firebase_options.dart';
 import 'login.dart';
 
@@ -25,6 +26,7 @@ class userInfo extends StatelessWidget {
       home: Info(),
       routes: {
         '/Shift': (context) => shift(),
+        '/Shifts': (context) => shifts(),
         '/Setting': (context) => Setting(),
         '/Chat': (context) => ChatPage(),
       },
@@ -236,9 +238,12 @@ class _Info extends State<Info> {
         currentIndex: 0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              label: 'シフト',
+              label: '休暇申請',
               icon: Icon(Icons.home),
               backgroundColor: Colors.blueAccent),
+           BottomNavigationBarItem(
+              label: 'シフト確認',
+              icon: Icon(Icons.task),),
           BottomNavigationBarItem(
             label: 'チャット',
             icon: Icon(Icons.chat),
@@ -252,8 +257,10 @@ class _Info extends State<Info> {
           if (value == 0) {
             Navigator.pushNamed(context, '/Shift');
           } else if (value == 1) {
+            Navigator.pushNamed(context, '/Shifts');
+          }else if (value == 2) {
             Navigator.pushNamed(context, '/Chat');
-          } else if (value == 2) {
+          } else if (value == 3) {
             Navigator.pushNamed(context, '/Setting');
           }
         },

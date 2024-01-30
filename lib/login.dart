@@ -81,8 +81,11 @@ class _LoginPageState extends State<LoginPage> {
                         await _auth.signInWithEmailAndPassword(
                           email: _email,
                           password: _password
-                        );
+                        );if(_email == 'liangtaigu978@gmail.com'){
+                        await Navigator.pushNamed(context , '/Chat');
+                        }else{
                         await Navigator.pushNamed(context , '/Shift');
+                        }
                        setState(() {
                          infoText = 'ログインに成功しました';
                        });

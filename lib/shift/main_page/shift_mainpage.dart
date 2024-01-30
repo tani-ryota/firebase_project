@@ -1,8 +1,14 @@
 import 'package:firebase_project/setting.dart';
+import 'package:firebase_project/shifts.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_project/shift/cell_calendar.dart';
 import 'sample_Events.dart';
 import 'package:firebase_project/ChatPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_project/shift.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class shift extends StatelessWidget {
   const shift({super.key});
@@ -18,9 +24,9 @@ class shift extends StatelessWidget {
       ),
       routes: {
         '/Chat': (context) => ChatPage(),
-        '/Setting': (context) => Setting(),
+        '/Shift': (context) => shift_final(),
       },
-      home: const MyHomePage(title: 'シフト表'),
+      home: const MyHomePage(title: 'シフト申請'),
     );
   }
 }
@@ -60,6 +66,9 @@ class MyHomePage extends StatelessWidget {
         monthYearLabelBuilder: (datetime) {
           final year = datetime!.year.toString();
           final month = datetime.month.monthName;
+
+         
+          
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: Row(
@@ -86,19 +95,23 @@ class MyHomePage extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.chat_bubble),
+                  icon: const Icon(Icons.task),
+                  tooltip: 'シフト確認',
+                  onPressed: () {
+                    
+                    Navigator.pushNamed(context, '/Shift');
+                  
+                  },
+                  
+                ),
+                IconButton(
+                  icon: const Icon(Icons.chat),
                   tooltip: 'チャット',
                   onPressed: () {
                     Navigator.pushNamed(context, '/Chat');
                   },
                 ),
-                IconButton(
-                  icon: const Icon(Icons.settings),
-                  tooltip: '設定',
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/Setting');
-                  },
-                ),
+              
               ],
             ),
           );

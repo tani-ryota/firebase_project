@@ -78,7 +78,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         body: Column(children: [
           Expanded(
-            child: StreamBuilder<QuerySnapshot<Post>>(
+          child: StreamBuilder<QuerySnapshot<Post>>(
               stream: postsReference.orderBy('createdAt').snapshots(),
               builder: (context, snapshot) {
                 final docs = snapshot.data?.docs ?? [];
@@ -97,6 +97,7 @@ class _ChatPageState extends State<ChatPage> {
                   itemBuilder: (context, index) {
                     final post = docs[index].data();
                     return PostWidget(post: post);
+                    
                   },
                 );
               },
@@ -150,7 +151,7 @@ class PostWidget extends StatelessWidget {
     required this.post,
   }) : super(key: key);
 
-  final Post post;
+  final   Post post;
 
   @override
   Widget build(BuildContext context) {

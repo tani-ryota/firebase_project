@@ -39,3 +39,31 @@ class Post {
   final String posterId;
   final DocumentReference reference;
 }
+class Doc {
+  Doc({
+    required this.day,
+    required this.user,
+    required this.reference,
+  });
+
+  factory Doc.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final map = snapshot.data()!;
+    return Doc(
+      day: map['day'],
+      user: map['user'],
+      
+      reference: snapshot.reference,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'day': day,
+      'user': user,
+      };
+  }
+
+  final Timestamp day;
+  final String user;
+  final DocumentReference reference;
+}

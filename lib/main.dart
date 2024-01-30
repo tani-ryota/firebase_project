@@ -1,6 +1,8 @@
 // import 'package:firebase_project/App.dart';
 
-import '/ChatPage.dart';
+import 'Create_shift.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,13 +10,23 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'shift/main_page/shift_mainpage.dart';
 
+final textProvider = StateProvider.autoDispose((ref) {
+  return TextEditingController(text: '');
+});
+// 数値を入れるプロバイダー
+final doubleProvider = StateProvider.autoDispose((ref) {
+  return TextEditingController(text: '');
+});
+// FireStoreの'arrays'コレクションのすべてのドキュメントを取得するプロバイダー。初回に全件分、あとは変更があるたびStreamに通知される。
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.android,
   );
   runApp(
-    const  MyApp(),
+    const  ProviderScope(child: MyApp()),
   );
 }
 class MyApp extends StatelessWidget {
@@ -76,7 +88,11 @@ class _SignInPageState extends State<SignInPage> {
             if (mounted) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
+                  if(FirebaseAuth.instance.currentUser?.displayName == 'Admin'){
+                  return  create_shift();
+                  }else{
                   return  shift();
+                  }
                 }),
                 (route) => false,
               );
