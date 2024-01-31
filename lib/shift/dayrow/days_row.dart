@@ -1,7 +1,7 @@
 export 'package:firebase_project/ChatPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_project/UserInfo.dart';
+
 import 'package:firebase_project/shift/cell_calendar.dart';
 
 import 'package:flutter/material.dart';
@@ -116,7 +116,7 @@ class _DayCell extends HookConsumerWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('休日申請'),
+                title: Text('出勤申請'),
                 content: Text('$date'),
                 actions: <Widget>[
                   FloatingActionButton(

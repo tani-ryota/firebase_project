@@ -1,7 +1,7 @@
 export 'package:firebase_project/ChatPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_project/UserInfo.dart';
+
 import 'package:firebase_project/shift/cell_calendar.dart';
 
 import 'package:flutter/material.dart';

@@ -1,5 +1,7 @@
 // import 'package:firebase_project/App.dart';
 
+
+
 import 'Create_shift.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
       // ログイン中
       return MaterialApp(
         theme: ThemeData(),
-        home:  shift(),
+        home:   isLogin(),
         
       );
     }
@@ -77,7 +79,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GoogleSignIn'),
+        title: const Text('ログイン'),
       ),
       body: Center(
         child: ElevatedButton(
@@ -91,7 +93,7 @@ class _SignInPageState extends State<SignInPage> {
                   if(FirebaseAuth.instance.currentUser?.displayName == 'Admin'){
                   return  create_shift();
                   }else{
-                  return  shift();
+                  return  isLogin();
                   }
                 }),
                 (route) => false,
@@ -105,3 +107,4 @@ class _SignInPageState extends State<SignInPage> {
 
 
 }
+

@@ -31,7 +31,7 @@ class shifts extends StatelessWidget {
       ),
       routes: {
         '/Chat': (context) => ChatPage(), 
-        '/shift': (context) => shift(),
+        '/shift': (context) => isLogin(),
         
         
       },
