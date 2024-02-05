@@ -12,7 +12,10 @@ class MyPage extends StatelessWidget {
     // そこで適当な変数名をつけた変数に一時的に値を格納して記述量を短くする場合があります。
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-      appBar: AppBar(title: const Text('マイページ')),
+      
+      appBar: AppBar(title: const Text('マイページ'),
+      backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
+      ),
       body: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(32),

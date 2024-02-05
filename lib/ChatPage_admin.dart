@@ -51,6 +51,7 @@ class _ChatPageState extends State<ChatPage_admin> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      
       onTap: () {
         primaryFocus?.unfocus();
       },
@@ -74,7 +75,7 @@ class _ChatPageState extends State<ChatPage_admin> {
                 ),
               ),
             )
-          ],
+          ],backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
         ),
         body: Column(children: [
           Expanded(

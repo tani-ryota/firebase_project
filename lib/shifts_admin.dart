@@ -27,7 +27,8 @@ class shifts_admin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: '',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -79,7 +80,7 @@ class MyPageView extends ConsumerWidget {
                     Navigator.pushNamed(context, '/shift');
                   },
           ),
-        ],
+        ],backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
       ),
       body: SafeArea(
         child: Column(

@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +11,15 @@ import 'shifts_admin.dart';
 import 'firebase_options.dart';
 import 'shift/main_page/shift_mainpage.dart';
 
+final FirebaseFirestore _db = FirebaseFirestore.instance;
+ final query = _db.collection("users").where("values").get() ;
+
+
+
 final textProvider = StateProvider.autoDispose((ref) {
   return TextEditingController(text: '');
 });
+
 
 // Firestoreの'arrays'コレクションのすべてのドキュメントを取得するプロバイダー。
 // 初回に全件分、あとは変更があるたびStreamに通知される。
@@ -29,7 +37,8 @@ class shift_final extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: '',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -54,14 +63,8 @@ class PostArrayPage extends ConsumerWidget {
     final AsyncValue<QuerySnapshot> firebaseArrays =
         ref.watch(firebaseArraysProvider);
 
-    Widget _updateDay() {
-    if (isDay == true) {
-      return Text('更新：${day}');
-    }
-
-    return Text('');
-  }
-
+    
+  
     DateTime? startDateTime;
     DateTime? endDateTime;
 
@@ -69,12 +72,7 @@ class PostArrayPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('シフト確認'),
         actions: [
-          Center(
-                child: Padding(
-                       padding:  const EdgeInsets.all(16.0),
-                       child: _updateDay(),
-                 )
-            ),
+          
           IconButton(
             icon: Icon(Icons.chat),
             tooltip: 'チャット',
@@ -90,9 +88,10 @@ class PostArrayPage extends ConsumerWidget {
                   },
           ),
         ],
-        
+        backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
       ),
       body: SafeArea(
+        
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -100,11 +99,12 @@ class PostArrayPage extends ConsumerWidget {
             children: [
               
               const SizedBox(height: 16), 
-            
+              
               Expanded(
                 child: firebaseArrays.when(
+                  
                   data: (QuerySnapshot query) {
-                    if(isShift == true){
+                    if(query.docs.isNotEmpty){
                     return ListView(
                       children: query.docs.map((document) {
                         var values = document['values'] as List;

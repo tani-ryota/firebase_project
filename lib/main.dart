@@ -35,16 +35,19 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    
 // currentUser が null であればログインしていません。
     if (FirebaseAuth.instance.currentUser == null) {
       // 未ログイン
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(),
         home: const SignInPage(),
       );
     } else {
       // ログイン中
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(),
         home:   isLogin(),
         
@@ -80,6 +83,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ログイン'),
+        backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
       ),
       body: Center(
         child: ElevatedButton(

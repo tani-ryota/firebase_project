@@ -74,7 +74,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
               ),
             )
-          ],
+          ],backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
         ),
         body: Column(children: [
           Expanded(

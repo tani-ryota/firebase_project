@@ -30,6 +30,7 @@ class isLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     if(FirebaseAuth.instance.currentUser?.displayName == 'Admin'){
       return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -45,6 +46,7 @@ class isLogin extends StatelessWidget {
                   
     }else{
       return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -76,6 +78,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
       ),
       body: CellCalendar(
         cellCalendarPageController: cellCalendarPageController,

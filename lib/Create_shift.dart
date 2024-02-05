@@ -36,9 +36,11 @@ class create_shift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        
       ),
       routes: {
         '/Chat': (context) => ChatPage(), 
@@ -67,6 +69,8 @@ class PostArrayPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('シフト作成'),
+        
+        
         actions: [
           IconButton(
             icon: Icon(Icons.chat),
@@ -83,7 +87,9 @@ class PostArrayPage extends ConsumerWidget {
                   },
           ),
         ],
+         backgroundColor: (const Color.fromARGB(255, 255, 155, 147)),
       ),
+      
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -171,7 +177,26 @@ class PostArrayPage extends ConsumerWidget {
 
                     // コレクションAのドキュメントを削除（オプション）
                     
-                }},
+                }
+                showDialog<void>(
+                  context: context,
+                  builder: (context) {
+                    return SimpleDialog(
+                      title: Text("シフト作成"),
+                      children: <Widget>[
+                        // コンテンツ領域
+                        SimpleDialogOption(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text("変更したシフトを確定しました"),
+                        ),
+                          
+                      
+                      ],
+                    );
+                  },
+                );
+
+                },
                 child: const Text('シフトを確定する'),
               ),
             ],
