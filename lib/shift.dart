@@ -12,7 +12,7 @@ import 'firebase_options.dart';
 import 'shift/main_page/shift_mainpage.dart';
 
 final FirebaseFirestore _db = FirebaseFirestore.instance;
- final query = _db.collection("users").where("values").get() ;
+ final query = _db.collection("SHIFTS").where("values").get() ;
 
 
 

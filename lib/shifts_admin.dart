@@ -12,6 +12,9 @@ import 'post.dart';
 import 'Create_shift.dart';
 
 // タイトルを入れるプロバイダー
+final FirebaseFirestore _db = FirebaseFirestore.instance;
+final query = _db.collection("SHIFT_HOLIDAY").where("user").get() ;
+
 final textProvider = StateProvider.autoDispose((ref) {
   return TextEditingController(text: '');
 });
@@ -92,6 +95,7 @@ class MyPageView extends ConsumerWidget {
               // データがあった（データはqueryの中にある）
               data: (QuerySnapshot query) {
                 // post内のドキュメントをリストで表示する
+                 if(query.docs.isNotEmpty){
                 return ListView(
                   // post内のドキュメント１件ずつをCard枠を付けたListTileのListとしてListViewのchildrenとする
                   children: query.docs.map((document) {
@@ -112,7 +116,11 @@ class MyPageView extends ConsumerWidget {
                       ),
                     ));
                   }).toList(),
-                );
+                );}else{
+                   return Scaffold(
+                        body: Center(child: Text('まだ出勤申請がされていません')),
+                      );
+                }
               },
 
               // データの読み込み中（FireStoreではあまり発生しない）
